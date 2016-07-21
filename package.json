@@ -10,12 +10,13 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "discord.js": "^7.0.1",
+    "discord.js": "^8.0.0",
     "fsmonitor": "^0.2.4",
     "musicmetadata": "^2.0.2",
     "nedb": "^1.8.0",
     "require-all": "^2.0.0",
     "walk": "^2.3.9",
-    "async": "latest"
+    "async": "latest",
+    "youtube-dl": "latest"
   }
 }

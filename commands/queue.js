@@ -19,6 +19,7 @@ exports.execute = function (data, cm, funcs) {
             cm.lib.searchLibraryRandom(qry.query, song => {
                 song.duration = funcs.digitalTime(Math.round(song.duration));
                 song.channel = data.m.channel;
+                //song.voiceConnection = data.m.client.voiceConnections.get('server', data.m.channel.server);
                 cm.music.queue.push(song);
                 reply += `Added `;
                 reply += `${song.title ? song.title : song.fileName}`;
@@ -28,7 +29,17 @@ exports.execute = function (data, cm, funcs) {
                 cm.music.play(data, cm, funcs);
                 data.m.channel.sendMessage(reply);
             });
-        } else {
+        } else if (qry.url) {
+            cm.music.getStream(qry.query, song => {
+                song.channel = data.m.channel;
+                //song.voiceConnection = data.m.client.voiceConnections.get('server', data.m.channel.server);
+                cm.music.queue.push(song);
+                reply += `Added ${song.title} to the queue.`;
+                cm.music.play(data, cm, funcs);
+                data.m.channel.sendMessage(reply);
+            });
+        }
+        else {
             if (qry.track) {
                 if (isNaN(qry.track)) {
                     cm.lib.searchRange(qry.query, qry.sort, qry.track, list => {
